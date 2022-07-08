@@ -14,7 +14,6 @@ MyPrimaryGenerator :: MyPrimaryGenerator()
         G4ThreeVector mom(0.,-1.,0.);
         fParticleGun->SetParticlePosition (pos);
         fParticleGun->SetParticleMomentumDirection (mom);
-        //fParticleGun->SetParticleMomentum (511. *keV);
         fParticleGun->SetParticleMomentum (511. *keV);
         fParticleGun->SetParticleDefinition(particle);
 

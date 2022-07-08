@@ -4,7 +4,7 @@
 MySensitiveDetector::MySensitiveDetector(G4String name, G4double Vov) : G4VSensitiveDetector(name)
 {
     PDE = new G4PhysicsOrderedFreeVector();
-
+    /*
     // Importing data regarding the Photo Detection Efficiency depending on the Overvoltage Vov
     std::ifstream datafile;
     datafile.open("eff.dat");
@@ -24,6 +24,7 @@ MySensitiveDetector::MySensitiveDetector(G4String name, G4double Vov) : G4VSensi
     }
 
     datafile.close();
+    */
     countdet=0;
 }
 
@@ -69,7 +70,7 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
     man->FillNtupleDColumn(0, 5,  Tlength/mm);
     man->AddNtupleRow(0);
 
-    G4double PDElim =PDE->Value(wlen);
+    G4double PDElim = 0.05;
     if (G4UniformRand() < PDElim){
         man->FillNtupleIColumn(1, 0,  evt);
         man->FillNtupleDColumn(1, 1,  posPhoton[0]/mm);// D==double
@@ -82,5 +83,6 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
         man->AddNtupleRow(1);
         countdet=countdet+1;
     }
+    
     return true;
 }
