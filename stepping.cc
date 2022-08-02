@@ -24,7 +24,7 @@ void MySteppingAction::UserSteppingAction(const G4Step *step)
         if(volume != fScoringVolume)
             return;
 
-        G4double edep = step->GetTotalEnergyDeposit();  
+        G4double edep = step->GetTotalEnergyDeposit();   
         fEventAction->AddEdep(edep);
     }
 //////////////////////////////////////////////////////////////////////////////
@@ -42,13 +42,13 @@ void MySteppingAction::UserSteppingAction(const G4Step *step)
         {
         fEventAction->AddLO(1.);
         G4ThreeVector momPhoton = preStepPoint->GetMomentum();
-        G4double wlen = (1.239841939*eV/momPhoton.mag())*1E+03;
+        wlen = (1.239841939*eV/momPhoton.mag())*1E+03;
 
     }
 
     if(step -> GetTrack() -> GetDefinition() == G4Gamma::Definition()) {
         //if(volume != fDetectorVolume)
-        //    return;
+        //  return;
     }
 
 //////////////////////////////////////////////////////////////////////////////

@@ -21,6 +21,8 @@ public:
 
     virtual void UserSteppingAction(const G4Step*);
 
+    G4double wlen;
+
 private:
     MyEventAction *fEventAction;
 };

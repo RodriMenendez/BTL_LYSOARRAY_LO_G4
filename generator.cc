@@ -9,13 +9,15 @@ MyPrimaryGenerator :: MyPrimaryGenerator()
     G4String particleName ="e-";
     G4ParticleDefinition *particle = particleTable->FindParticle(particleName);
     
-
-        G4ThreeVector pos(0.*m,-0.02*m,0.*m);
-        G4ThreeVector mom(0.,-1.,0.);
+        G4double GenX=(-0.005/2+0.005*G4UniformRand());
+        G4double GenZ=(-0.005/2+0.005*G4UniformRand());
+        G4double GenY=-0.021;
+        G4ThreeVector pos(GenX*m,GenY*m,GenZ*m);
+        G4ThreeVector mom(0., -1.,0.);
         fParticleGun->SetParticlePosition (pos);
         fParticleGun->SetParticleMomentumDirection (mom);
         //fParticleGun->SetParticleMomentum (511. *keV);
-        fParticleGun->SetParticleMomentum (120. *keV);
+        fParticleGun->SetParticleMomentum (0.*GeV);
         fParticleGun->SetParticleDefinition(particle);
        
 }
@@ -31,12 +33,12 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent)
     G4ParticleDefinition *particle= fParticleGun->GetParticleDefinition();
 
     // Example for particle definition (not used in this executable)
-    /*
+    
     if (particle == G4Geantino::Geantino())
     {
-        // Cobalt particle
-        G4int Z=27;
-        G4int A=27;
+        // Silicon particle
+        G4int Z= 14;
+        G4int A= 32;
         G4double charge = 0.*eplus;
         G4double energy = 0.*keV;
 
@@ -46,6 +48,7 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent)
         fParticleGun->SetParticleCharge(charge);
 
     }
-    */
+    
+    
     fParticleGun->GeneratePrimaryVertex(anEvent);
 }

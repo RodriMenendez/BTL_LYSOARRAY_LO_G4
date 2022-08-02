@@ -1,1 +1,2 @@
-/run/beamOn 1000
+/gun/momentumAmp {Amp} keV
+/run/beamOn 1
