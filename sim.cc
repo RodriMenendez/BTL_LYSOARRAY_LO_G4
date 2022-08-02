@@ -39,7 +39,7 @@ int main(int argc, char** argv) /* argc, argv are the argument passed to the sim
                 }
         }
 
-    if (Oin == 0 ) {  OutName = "DetectorOutside";   }
+    if (Oin == 0 ) {  OutName = "DetectorInside";   }
 
     runManager -> SetUserInitialization(new MyActionInitialization(OutName)); /*Define actions*/
 
@@ -106,7 +106,7 @@ int main(int argc, char** argv) /* argc, argv are the argument passed to the sim
   G4VisManager * visManager = new G4VisExecutive();
   visManager->Initialize();
   
-  G4UImanager *UImanager = G4UImanager::GetUIpointer();
+  //G4UImanager *UImanager = G4UImanager::GetUIpointer();
   
   /*
   UImanager->ApplyCommand("/vis/open OGL");
@@ -117,7 +117,8 @@ int main(int argc, char** argv) /* argc, argv are the argument passed to the sim
   UImanager->ApplyCommand("/vis/scene/endOfEventAction accumulate");
   */
   
-  //UImanager->ApplyCommand("/control/loop myRun.mac Amp 1. 10. 0.5");
+  
+  //UImanager->ApplyCommand("/control/loop myRun.mac Amp 1. 10. 1.");
   //UImanager->ApplyCommand("/control/loop electron.mac run 0. 1. 0.001");
   
   //ui->SessionStart();

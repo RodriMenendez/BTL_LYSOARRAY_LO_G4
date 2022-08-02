@@ -96,7 +96,7 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
     //man->OpenFile("./Results/"+OutputName+strRunID.str()+".root");
 
     // test to write files to external hard drive
-    man->OpenFile("/mnt/d/DMProject/dark_matter_sim/tests/"+OutputName+strRunID.str()+".root");
+    man->OpenFile("/mnt/d/DMProject/detector_inside/siliconRadiation/sim/"+OutputName+strRunID.str()+".root");
     //man->OpenFile("./Results/detector_outside_electron/"+OutputName+strRunID.str()+".root");
     
 }
