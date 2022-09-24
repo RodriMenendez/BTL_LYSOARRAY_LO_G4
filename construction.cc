@@ -6,7 +6,7 @@ MyDetectorConstruction::MyDetectorConstruction()
     // Initialization of variables in the constructor and messenger definitions for later modification in between runs (i.e. define commands that can be changed in terminal)
     
     TARGET_YIELD= 124.;
-    LYSO_SCALERESOLUTION=0.1;
+    SCALERESOLUTION=0.1;
     Vovcon=3.5;
     /*
     LYSO_L = 57./2.;    
@@ -149,8 +149,7 @@ void MyDetectorConstruction::DefineMaterial() // function to define a single tim
     const G4int numD = 46;
     G4double targ_ene_D[numD] = {0.*eV, 1.0590363149961763*eV, 1.0499915433844917*eV, 1.0411066899478856*eV, 1.0323658674098446*eV, 1.0237802307217656*eV, 1.015342539841102*eV, 1.0070521186910215*eV, 0.9989035510084632*eV, 0.9908888025380875*eV, 0.9829957985305847*eV, 0.9756813361203623*eV, 0.9680120138824387*eV, 0.96045532649805*eV, 0.9530294782928347*eV, 0.9457162778911276*eV, 0.9385077825321461*eV, 0.9314096054181311*eV, 0.924406276095999*eV, 0.9179014515589082*eV, 0.9110686494919132*eV, 0.9043405155864735*eV, 0.8977160310970833*eV, 0.891186611184669*eV, 0.8851381739942262*eV, 0.8787992600219292*eV, 0.8725446591012114*eV, 0.8663773093781172*eV, 0.8602897869213891*eV, 0.8542949844026524*eV, 0.8487309679189479*eV, 0.8428988950104308*eV, 0.8371485734669231*eV, 0.8314740596536633*eV, 0.8258800819377473*eV, 0.8206861402348788*eV, 0.8152349378031276*eV, 0.809856626220714*eV, 0.8045458900615358*eV, 0.799309247118479*eV, 0.7941422141098384*eV, 0.7893404979348808*eV, 0.7843012375965787*eV, 0.779329536759658*eV, 0.7761422431454008*eV, 0.*eV};
     G4double intensity_D[numD]  =  {0., 1.3218213315265277, 1.3216331867853646, 1.3480988803756315, 1.354579421460136, 1.4010720774986463, 1.4742394768398268, 1.5873980861637726, 1.7339210295872969, 1.8937604396909158, 2.0269251064918645, 2.1534419924383856, 2.2132720201282314, 2.2397586186897387, 2.3329111705366814, 2.419415941529197, 2.4725772833933752, 2.53238640611198, 2.532198261370817, 2.485329315849981, 2.3251136162640353, 2.184883069183853, 2.071327265406341, 1.951102775803161, 1.8975860494278975, 1.830690141458818, 1.7304926143038817, 1.623605496352037, 1.4767062634461867, 1.3764878313200097, 1.2962963616420757, 1.2160839869929014, 1.1492089839950625, 1.0689966093458882, 1.0154589779993843, 0.9819274041298833, 0.9217210869577119, 0.868183455611208, 0.7946397667877015, 0.7544395070925329, 0.7275766190486994, 0.7073824168305336, 0.6805195287867002, 0.6803313840455372, 0.6535312109154247, 0.};
-    
-    // TO CORRECT	
+    	
     // absorption length
     G4double target_absene[18] = {1.5819*eV, 1.5872*eV, 1.592*eV, 1.597*eV, 1.6019*eV, 1.6073*eV, 1.6122*eV, 1.6171*eV, 1.6219*eV, 1.627*eV, 1.6319*eV, 1.6372*eV, 1.6421*eV, 1.6471*eV, 1.652*eV, 1.657*eV, 1.6619*eV, 1.6665*eV};
     G4double target_absv2[18]   =  {0.91327*cm, 0.38512*cm, 0.1762*cm, 0.081546*cm, 0.038194*cm, 0.018746*cm, 0.009196*cm, 0.0047841*cm, 0.0027638*cm, 0.001489*cm, 0.00082111*cm, 0.00045814*cm, 0.00028392*cm, 0.00017803*cm, 0.00011426*cm, 0.000079579*cm, 0.00006378*cm, 0.00005809*cm};    
@@ -165,10 +164,9 @@ void MyDetectorConstruction::DefineMaterial() // function to define a single tim
     mptScint->AddProperty("RINDEX", targ_ene, targ_r,num);
     mptScint->AddConstProperty("SCINTILLATIONYIELD", TARGET_YIELD / keV);//Word data check
     
-    // TO CORRECT
     mptScint->AddProperty("ABSLENGTH", target_absene, target_absv2,2);
     mptScint->AddProperty("RAYLEIGH", target_ene, target_scat,2);
-    mptScint->AddConstProperty("RESOLUTIONSCALE", LYSO_SCALERESOLUTION); //10%
+    mptScint->AddConstProperty("RESOLUTIONSCALE", SCALERESOLUTION); //10%
     
     // Band B
     mptScint->AddProperty("SCINTILLATIONCOMPONENT1", targ_ene_B, intensity_B, numB);
@@ -225,6 +223,8 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
     logicWorld = new G4LogicalVolume(solidWorld, worldMat, "logicWorld");
 
+    fScoringVolume = logicTarget; fDetectorVolume=logicDetector;
+
 //////////////////////
 // PHYSICAL VOLUMES // G4PVPlacement(rotation,translation,logic_,"var",motherVolume,boolean,index if rep,check overlap);    
 //////////////////////
@@ -232,7 +232,8 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     G4double spacing = 0*mm;
     
     physWorld = new G4PVPlacement(0,G4ThreeVector(0.,0.,0.),logicWorld,"physWorld",0,false,0,true);
-    physDetector = new G4PVPlacement(0,G4ThreeVector(0., dety+4.7*nm/2-0.625*mm/2-spacing, 0.),logicDetector,"physDetector",logicWorld,false,1,true); 
+    //physDetector = new G4PVPlacement(0,G4ThreeVector(0., dety+4.7*nm/2-0.625*mm/2-spacing, 0.),logicDetector,"physDetector",logicTarget,false,1,true); 
+    physDetector = new G4PVPlacement(0,G4ThreeVector(0., -0.625*mm/2+4.7*nm/2, 0.),logicDetector,"physDetector",logicTarget,false,1,true);
     physTarget = new G4PVPlacement(0, G4ThreeVector(0., dety, 0.), logicTarget, "physTarget", logicWorld, false, 2, true);
 
 

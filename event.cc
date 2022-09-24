@@ -62,20 +62,21 @@ void MyEventAction::BeginOfEventAction(const G4Event *anEvent)
     G4double LYSO_T  = detectorConstruction->GetLYSOT();
     LYSO_T=LYSO_T-LYSO_T*0.01;// This should go at the end of the run or with the rest of geometry changes
 
-    G4cout<< "Data from construction: "<< LYSO_L << " " << LYSO_T << " " << GeomConfig << G4endl;
+    //G4cout<< "Data from construction: "<< LYSO_L << " " << LYSO_T << " " << GeomConfig << G4endl;
     
 
     // Change of gun position between events depending on geometry (LYSO bar/tile)
+        
         G4double GenX=(-0.005/2+0.005*G4UniformRand());
         G4double GenZ=(-0.005/2+0.005*G4UniformRand());
         G4double GenY=-0.02 + (-0.000625/2+0.000625*G4UniformRand());;
-        //command = "/gun/position "+std::to_string(GenX)+" -0.02 "+std::to_string(GenZ)+" m";
-        command = "/gun/position " + std::to_string(GenX) + " " + std::to_string(GenY) + " " + std::to_string(GenZ)+" m"; 
-        G4cout<< command << G4endl;
-        UImanager->ApplyCommand(command);     
-        command = "/gun/direction 0. -1. 0."; 
-        G4cout<< command << G4endl;
-        UImanager->ApplyCommand(command); 
+        //command = "/gun/position "+std::to_string(GenX)+" " + std::to_string(GenY) + " " +std::to_string(GenZ)+" m";
+        //command = "/gun/position " + std::to_string(GenX) + " " + std::to_string(GenY) + " " + std::to_string(GenZ)+" m"; 
+        //G4cout<< command << G4endl;
+        //UImanager->ApplyCommand(command);     
+        //command = "/gun/direction 0. -1. 0."; 
+        //G4cout<< command << G4endl;
+        //UImanager->ApplyCommand(command); 
 
 
 // Write down data to screen if we are at a certain percentage of the total number of events

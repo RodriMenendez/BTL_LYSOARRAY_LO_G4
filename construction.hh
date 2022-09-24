@@ -51,7 +51,7 @@ private: // it is not accessed from outside
     G4LogicalVolume *logicDetector; // We need to refer to this volume. Needs to be outside of the construction.
 
     G4int nCols, nRows, GeomConfig, ESRtrue;
-    G4double LYSO_L, TARGET_YIELD, LYSO_SCALERESOLUTION, Vovcon, LYSO_thick, perincr;
+    G4double LYSO_L, TARGET_YIELD, SCALERESOLUTION, Vovcon, LYSO_thick, perincr;
     virtual void ConstructSDandField(); // SD==Sensitive Detector
     G4GenericMessenger *fMessenger,*fMessenger_thick, *fMessenger_SR, *fMessenger_YIELD, *fMessenger_vov, *fMessenger_GlueL, *fMessenger_ResinL, *fMessenger_XPos, *fMessenger_YPos, *fMessenger_GC, *fMessenger_pi, *fMessenger_ESR;
 

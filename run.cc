@@ -30,6 +30,7 @@ MyRunAction :: MyRunAction(G4String OutName)
             man->CreateNtupleDColumn("fPDE");
             man->CreateNtupleDColumn("fwlen");
             man->CreateNtupleDColumn("fMeanPath");
+            man->CreateNtupleDColumn("fTrackID");
             man->FinishNtuple(1); // Finish our first tuple or Ntuple number 0
 
          // Tuple containing all data fregarding the estimations written to screen at the end of each event
@@ -96,7 +97,7 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
     //man->OpenFile("./Results/"+OutputName+strRunID.str()+".root");
 
     // test to write files to external hard drive
-    man->OpenFile("/mnt/d/DMProject/detector_inside/siliconRadiation/sim/"+OutputName+strRunID.str()+".root");
+    man->OpenFile("/mnt/d/DMProject/dark_matter_sim/simulation/simAll/"+OutputName+strRunID.str()+".root");
     //man->OpenFile("./Results/detector_outside_electron/"+OutputName+strRunID.str()+".root");
     
 }

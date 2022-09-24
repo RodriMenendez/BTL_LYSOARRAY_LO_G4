@@ -1,4 +1,8 @@
 #include "generator.hh"
+#include <cctype>
+#include <random>
+
+using u32    = uint_least32_t;
 
 MyPrimaryGenerator :: MyPrimaryGenerator()
 {
@@ -6,20 +10,26 @@ MyPrimaryGenerator :: MyPrimaryGenerator()
 
     // Add to constructor what we want to use in macro files or modify per event or it will be overwritten 
     G4ParticleTable *particleTable = G4ParticleTable::GetParticleTable();
-    G4String particleName ="geantino";
+    G4String particleName ="e-";
     G4ParticleDefinition *particle = particleTable->FindParticle(particleName);
+
+    // change seed for every run
+    std::random_device os_seed;
+    const u32 seed = os_seed();
+    gRandom->SetSeed(seed);
     
         G4double GenX=(-0.005/2+0.005*G4UniformRand());
         //G4double GenX = 0.;
         G4double GenZ=(-0.005/2+0.005*G4UniformRand());
         //G4double GenZ = 0.;
-        G4double GenY=-0.021;
+        G4double GenY = -0.02 + (-0.000625/2+0.000625*G4UniformRand());
+        //G4double GenY = -0.02;
         G4ThreeVector pos(GenX*m,GenY*m,GenZ*m);
-        G4ThreeVector mom(0., 0.,0.);
+        G4ThreeVector mom(0., -1.,0.);
         fParticleGun->SetParticlePosition (pos);
         fParticleGun->SetParticleMomentumDirection (mom);
         //fParticleGun->SetParticleMomentum (511. *keV);
-        fParticleGun->SetParticleMomentum (0.*GeV);
+        fParticleGun->SetParticleMomentum (1. *keV);
         fParticleGun->SetParticleDefinition(particle);
        
 }

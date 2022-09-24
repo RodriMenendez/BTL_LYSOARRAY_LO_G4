@@ -106,22 +106,23 @@ int main(int argc, char** argv) /* argc, argv are the argument passed to the sim
   G4VisManager * visManager = new G4VisExecutive();
   visManager->Initialize();
   
-  //G4UImanager *UImanager = G4UImanager::GetUIpointer();
+  G4UImanager *UImanager = G4UImanager::GetUIpointer();
   
   /*
-  UImanager->ApplyCommand("/vis/open OGL");
-  UImanager->ApplyCommand("/vis/viewer/set/viewpointVector 1 1 1");
+  UImanager->ApplyCommand("/vis/open OGL 500x500-0+0");
+  UImanager->ApplyCommand("/vis/viewer/set/viewpointVector 0 0 1");
   UImanager->ApplyCommand("/vis/drawVolume");
   UImanager->ApplyCommand("/vis/viewer/set/autoRefresh");
   UImanager->ApplyCommand("/vis/scene/add/trajectories smooth");
   UImanager->ApplyCommand("/vis/scene/endOfEventAction accumulate");
-  */
   
   
-  //UImanager->ApplyCommand("/control/loop myRun.mac Amp 1. 10. 1.");
+  
+  //UImanager->ApplyCommand("/control/loop myRun.mac Amp 1. 100. 1.");
   //UImanager->ApplyCommand("/control/loop electron.mac run 0. 1. 0.001");
   
-  //ui->SessionStart();
+  ui->SessionStart();
+  */
   }
 
 

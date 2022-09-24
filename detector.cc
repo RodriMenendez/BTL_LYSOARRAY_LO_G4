@@ -34,6 +34,7 @@ MySensitiveDetector::~MySensitiveDetector()
 G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
 {
     G4Track *track = aStep->GetTrack();
+    int trackID = track->GetTrackID();
     G4double Tlength = track->GetTrackLength();
 
     // As soon as the photon impacts it stops tracking (as it is taken from pre-step point the post-point information is still available and plotted**)
@@ -81,6 +82,7 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
         man->FillNtupleDColumn(1, 5,  PDElim);
         man->FillNtupleDColumn(1, 6,  wlen);
         man->FillNtupleDColumn(1, 7,  Tlength/mm);
+        man->FillNtupleDColumn(1, 8, trackID);
         man->AddNtupleRow(1);
         countdet=countdet+1;
     }
